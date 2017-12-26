@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<button id="btn">点我有红包</button>
+	<script>
+		var btn=document.getElementById("btn");
+		function movebox(obj){
+			this.obj=obj;
+			this.xuanran()
+			this.clear1()
+			this.click()
+		}
+		movebox.prototype={
+			constructor:movebox,
+			xuanran:function(){
+				this.box=document.createElement("div");
+				this.box.id="box";
+				document.body.appendChild(this.box);
+				this.mark=document.createElement("div");
+				this.mark.id="mark";
+				this.box.appendChild(this.mark);
+				this.mark.innerHTML=`<div class="clear">&times;</div><h3>${this.obj.title}</h3><p>${this.obj.content}</p><p><button id="btn1">${this.obj.buttons[0]}</button><button id="btn2">${this.obj.buttons[1]}</button></p>`;
+
+			},
+			clear1:function(){
+				var clear=document.getElementsByClassName("clear")[0];
+				var that=this;
+				clear.onclick=function(){
+					document.body.removeChild(that.box)
+				}
+			},
+			click:function(){
+				var btn1=document.getElementById("btn1");
+				var btn2 = document.getElementById("btn2");
+				console.log(btn1);
+				var that = this;
+				btn1.onclick=function(){
+					document.body.removeChild(that.box)
+				}
+				btn2.onclick=function(){
+					document.body.removeChild(that.box)
+				}
+			}
+		}
+
+		btn.onclick=function(){
+			new movebox({
+				title:"大红包",
+				content:"要领取吗",
+				buttons:["YES","NO"],
+				successCallback:function(){},
+				cancelCallback:function(){
+
+				}
+			})
+		}
+
+	</script>
+</body>
+</html>
